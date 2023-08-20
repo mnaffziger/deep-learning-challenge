@@ -14,7 +14,7 @@ Results: Using bulleted lists and images to support your answers, address the fo
 
 ### Data Preprocessing
 
-##### * Model 1 *
+##### **Model 1**
 
 What variable(s) are the target(s) for your model?
 What variable(s) are the features for your model?
