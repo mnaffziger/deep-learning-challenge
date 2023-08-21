@@ -58,7 +58,7 @@ From the loss and accuracy curves from this model, the models quickly started ov
 #### Model 2: Dataset with 'Names' category
 The second model was roughly 10 times larger in feature count.  This routinly provided a model with around 175,000 parameters to configure.  As mentioned in the Model Building section, this created a bias in the number of available neurons a layer could have.  Since the tuner search was allowed to choose a number between 1 and ~440 it is more likely a layer would have around 200 neurons on average.  In contrast, Model 1's neuron count choice was bound between 1 and ~45, so more layers will have around 20 neurons per layer.  
 The additional data, neurons, and resulting model parameters easily provided a training accuracy over 80%, with a loss no higher than 0.41.  Model 2 also started to overfit, however, overfitting did not occur until higher epochs, compared to model 1. Typically, when Model 2 was re-initiated, the best epoch was determined to be between 20-30.  Like Model 1, however, the validation/test accuracy fluctuated between ~79%.  The validation accuracy did not significantly improve with the number of epochs.
-# INSERT MODEL 2 LOSS FIGURE
+![Model 2 training and validation loss and accuracy curves](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Model%202%20loss%20and%20accuracy%20charts.png)
 
 #### Model 3: Investigate instance:feature ratio
 Due to the considerably large difference in model parameters between Model 1 and Model 2, a third model was studied.  Model 3 was built with the following parameters:
