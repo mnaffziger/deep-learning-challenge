@@ -48,12 +48,13 @@ Activation functions: relu, tanh, sigmoid were chooses banes on their utility on
 Due to the overall shape of the datasets for either model, the number of features in the encoded dataset varried between 41 and 450 depending on the binning cut off.  For this reason, the hyperband tuner was allowed to choose between 1 and the total number of features to determin how many neuron each layer contained.  This created a natural bias in the parameter count, since there was a greater variety of neurons in Model 2.  Hence the range of availible neuron to choose was an indirect test of the instance:feature ratio.  Since the datasets used for each model did not change the number of instances, the instance:feature ratio for the models was 850:1 (model 1) and 76:1 (Model 2).
 ##### *Hidden Layers*
 The tuner search ultilized between 1 - 6 hidden layers.  Due to time and computation restraints, allowed hidden layers were capped at 6.  After the best hyperparameters were chosen, the model summary for the models counted 5,347 parameters (Model 1) and 175,617 parameters (Model 2)
+
 ---
 ## Results
 #### Model 1: Dataset without 'Names' category
 This model contained the least about of information contained within the dataset.  With the total number of features no more than 45, taking into face the binning cut off and encoding process, this model utilized around 5,347 parameters to provide a instance:feature ratio of 850:1.  This model could only achieve an accuracy of 73% with a loss around 0.531.  Despite several attempts at changing the cut off values for the binned features, activation function, and total possible neurons/layer, a training accuracy of 73% became the ceiling for this model. From the hyperband tuning process, the activation functions that typically resulted in the top 5 performing models (based on accuracy) were relu or tanh.
 From the loss and accuracy curves from this model, the models quickly started overfitting- typically after 10 epochs. Additionally, eventhough the training data provided hyperparameters that could achieve ~74%, the validation/test data set fluctuated between 72.5% and 73.1%.
-![Model 1 Training and Validation Loss and Accuracy Curves]([https://github.com/mnaffziger/deep-learning-challenge/blob/main/Model%201%20loss%20and%20accuracy%20charts.png](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Model%201%20loss%20and%20accuracy%20charts.png))
+![Model 1 Training and Validation Loss and Accuracy Curves](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Model%201%20loss%20and%20accuracy%20charts.png)
 
 #### Model 2: Dataset with 'Names' category
 The second model was roughly 10 times larger in feature count.  This routinly provided a model with around 175,000 parameters to configure.  As mentioned in the Model Building section, this created a bias in the number of available neurons a layer could have.  Since the tuner search was allowed to choose a number between 1 and ~440 it is more likely a layer would have around 200 neurons on average.  In contrast, Model 1's neuron count choice was bound between 1 and ~45, so more layers will have around 20 neurons per layer.  
@@ -70,11 +71,14 @@ Due to the considerably large difference in model parameters between Model 1 and
 Overall, Model 3 performed very similiar to Model 2.  Both Model 2 and 3 achieced at least 79% validation/test accuracy, with a loss no higher than 0.41.  This included a similar overfitting trend around epoch #30.  Interestingly, the validation accuracy kept fluctuating around 79% and did not significantly increase with as the epochs increased. This result suggests a couple of considerations:
 *   Limiting the hidden layers to 6 does not necessarily require a large number of neurons per layer
 *   Dimention reduction, as the number of neurons per layer is an area of interest to increase accuracy
-# INSERT MODEL 3 LOSS FIGURE
-
+![Model 3 training and validation loss and accuracy curves](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Model%203%20loss%20and%20accuracy%20charts.png)
 #### All Models: Underrepresentative dataset
 Considering all of the features (once encoded) all of the models utilized, it is possible that the dataset does not represent a balanced number of instances for the model to consider.  From the loss curve for each of the models, the validation loss starts with underfit values, when compared to the training data loss.  As the epochs progress, the loss improves for a couple epochs, before overfitting takes over, but there is consitant gap between the training and validation curve.  This result suggests the training data could be too small relative to the validation dataset.
-# INSERT RETRAINED FIGURE MODEL 2
+
+![Model 1 retrained loss and accuracy curves](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Retrain%20model%201%20loss%20and%20accuracy%20charts.png)
+
+![Model 2 retrained loss and accuracy curves](https://github.com/mnaffziger/deep-learning-challenge/blob/main/Retrain%20model%202%20loss%20and%20accuracy%20charts.png)
+
 ---
 ## Summary
 In summary, the target accuracy of 75% was achieved when the dataset included the 'Names' category from the originally provided data from Alphabet Soup.  With the increased data size, a validation accuracy of ~79% was achieved with a validation loss around 0.44, when the training was stopped early before overfitting occured.  Based on the trainind plots for loss and accuracy, it appears that effeciency and accuracy/loss can be increased by fine tuning the total number of model parameters.  Lastly, before the model is signed-off on for the clients, the dataset original dataset should be evaluated in detail to address possible unrepresentative models.
